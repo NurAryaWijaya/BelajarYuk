@@ -1,23 +1,21 @@
-# fly.toml app configuration file generated for belajaryuk on 2026-02-15T19:53:12Z
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
-app = 'belajaryuk'
-primary_region = 'sin'
+app = "belajaryuk"
 
 [build]
+  # Pakai Dockerfile di root
+  image = "Dockerfile"
 
-[http_service]
+[env]
+  MONGO_URI = "dummy"   # nanti diganti dengan secret
+  FRONTEND_URL = "https://myfrontend.vercel.app"
+
+[[services]]
   internal_port = 8080
-  force_https = true
-  auto_stop_machines = 'stop'
-  auto_start_machines = true
-  min_machines_running = 0
-  processes = ['app']
+  protocol = "tcp"
 
-[[vm]]
-  memory = '1gb'
-  cpu_kind = 'shared'
-  cpus = 1
-  memory_mb = 256
+  [[services.ports]]
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443

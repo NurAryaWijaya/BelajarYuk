@@ -31,7 +31,7 @@ mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('MongoDB Connected ✅'))
     .catch(err => console.log(err));
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT;
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server jalan di port ${PORT}`);
 });
